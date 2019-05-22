@@ -1,0 +1,38 @@
+
+
+<!-- search bar -->
+
+<div class="form-container">
+    <div class="row">
+        <div class="col-3 col-m-3 col-p-12">
+            <h5>Search for Ski Area by Name</h5>
+            <form action="/ski-areas/search" id="ski-areas-search" method="GET" role="searchForm">
+                <input id="name" name="name" type="text" placeholder="Search Ski Area by Name" required="required">
+                <input type="submit" id="submit" value="SUBMIT" name="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-m-12 col-p-12">
+        <h4>Devices</h4>
+            <table style="border: solid;">
+                <tr> 
+                    <th>Name</th>
+                    <th>Manufacture</th>
+                    <th>Current Energy Usage</th>
+                </tr>
+
+            <tbody id="table-data">
+            {{#each devices}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{manufacture}}</td>
+                    <td>{{currentEnergyUsage}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+            </table>
+        </div>
+    </div>
