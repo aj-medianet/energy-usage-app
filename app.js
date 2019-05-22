@@ -29,14 +29,13 @@ app.set('mysql', mysql);
 app.use(express.static('public'));
 
 
-/*
+
 //home page
 app.get('/', function(req, res) {
     res.render('home');
 });
-*/
 
-require('./routes')(app);
+
 
 //homepage
 //app.use('/home', require('./homepage'));
