@@ -2,7 +2,6 @@ const express = require('express');
 
 //mysql 
 let mysql = require('./dbcon.js');
-//moment timezone stuff
 const bodyParser = require('body-parser');
 
 //express stuff
@@ -13,8 +12,6 @@ let handlebars = require('express-handlebars').create({
 });
 let credentials = require('./credentials.js');
 let request = require('request');
-
-
 
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({
@@ -35,11 +32,11 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
+//route devices page
+app.use('/devices', require('./devices'));
 
 
-//homepage
-//app.use('/home', require('./homepage'));
-
+//error page handling
 app.use(function(req, res) {
     res.status(404);
     res.render('404');

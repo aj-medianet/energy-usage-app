@@ -10,7 +10,6 @@ module.exports = function() {
 
     //select all from devices table
     function getDevices(res, mysql, context, complete){
-        console.log("int getDevices");
         mysql.pool.query("SELECT * FROM devices", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -40,7 +39,7 @@ module.exports = function() {
         });
     }
 
-    //ski page from search
+    //device page from search
     router.get('/search', function(req, res){
         let callbackCount = 0;
         let context = {};
@@ -60,19 +59,16 @@ module.exports = function() {
     *** Main GET request for page ***
     ********************************/
 
-
-    //home page
     router.get('/', function(req, res){
         let callbackCount = 0;
         let context = {};
-        //context.jsscripts = ["spa.js"];
+        context.jsscripts = ["spa.js"];
         getDevices(res, mysql, context, complete);
-        console.log("in router get");
 
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
-                res.render('/', context);
+                res.render('devices', context);
             }
 
         }

@@ -12,4 +12,4 @@ CREATE TABLE `devices` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB;
 
-INSERT INTO `devices` VALUES (1, 'Microwave', 'Toshiba',0,0), (2, 'Oven', 'Samsung',0,0), (3, 'Refrigerator', 'Samsung',0, 10), (4, 'Thermostat', 'Nest',0, 15);
+INSERT INTO `devices` VALUES (1, 'Microwave', 'Toshiba',0,0), (2, 'Oven', 'Samsung',0,0), (3, 'Refrigerator', 'Samsung',0, 10), (4, 'Thermostat', 'Nest',1, 15);
