@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override');
 
 //mysql 
 let mysql = require('./dbcon.js');
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 
 
 app.set('view engine', 'handlebars');
