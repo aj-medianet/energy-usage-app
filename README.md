@@ -167,6 +167,17 @@ module.exports.pool = pool;
 
 ---
 
+## Steps to take before you work on something
+
+- Pull most current version of the project to work on
+```
+git pull
+npm install
+npm start
+```
+
+---
+
 ### Trouble Shooting for the database connection
 
 If there is an issue reporting **Client does not support authentication protocol requested by server; consider upgrading MySQL client**, run:
