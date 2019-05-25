@@ -169,7 +169,7 @@ module.exports.pool = pool;
 
 ## Steps to take before you work on something
 
-- Pull most current version of the project, install any new node_modules, run the site
+- Pull most current version of the project, install any new node_modules, run the app
 ```
 git pull
 npm install
