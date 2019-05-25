@@ -77,7 +77,8 @@ module.exports = function() {
     router.get('/', function(req, res){
         let callbackCount = 0;
         let context = {};
-        context.jsscripts = ["spa.js"];
+        // context.jsscripts = ["spa.js"];
+        context.jsscripts = ["deletedevice.js"];
         getDevices(res, mysql, context, complete);
 
         function complete(){
@@ -144,6 +145,25 @@ module.exports = function() {
         });
     });
     */
+
+    router.delete('/:device_id', (req, res) => {
+        console.log("Delete button pressed!");
+
+        var mysql = req.app.get('mysql');
+        var sql_query = "DELETE Device FROM devices Device WHERE Device.id = ?";
+        var inserts = req.params.device_id;
+
+        sql = mysql.pool.query(sql_query, inserts, (err, result, fields) => {
+
+            if(err) {
+                res.send(500);
+            } else {
+                res.status(202);
+                res.end();
+            }
+        });
+  });
+
 
     return router;
 }();
