@@ -27,8 +27,6 @@ app.set('port', 3200);
 app.set('mysql', mysql);
 app.use(express.static('public'));
 
-
-
 //home page
 app.get('/', function(req, res) {
     res.render('home');

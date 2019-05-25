@@ -19,6 +19,21 @@ module.exports = function() {
             complete();
         });
     }
+
+    //get information of single device
+    function getDevice(res, mysql, context, device_id, done){
+        const sql_query = `SELECT devices.id, devices.name, devices.manufacturer, devices.deviceOnOff, devices.currentEnergyUsage FROM devices WHERE devices.id = ?`
+        const inserts = [device_id];
+        mysql.pool.query(sql_query, inserts, (err, result, fields) => {
+            if(err){
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end()
+            }
+            context.device = result[0];
+            done();
+        })
+    }
     
 
     /*************
@@ -72,6 +87,40 @@ module.exports = function() {
             }
 
         }
+    });
+
+    /* Update Device */
+    router.get('/:device_id', (req, res) => {
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatedevice.js"];
+        var mysql = req.app.get('mysql');
+        getDevice(res, mysql, context, req.params.device_id, done);
+        function done() {
+            callbackCount++;
+            if (callbackCount >= 1)
+            {
+                res.render('updateDevice', context);
+            }
+        }
+    });
+
+    router.put('/:device_id', (req, res) => {
+        console.log("Edit button pressed!");
+        // console.log(req.body)
+        var mysql = req.app.get('mysql');
+        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ?, currentEnergyUsage = ? WHERE id = ?;`;
+        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.body.currentEnergyUsage, req.params.device_id];
+
+        sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
+        if(err) {
+            res.send(500);
+        } else {
+            res.status(200);
+            res.end();
+            console.log("Updated Device");
+        }
+        });
     });
 
 
