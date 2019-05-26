@@ -12,42 +12,50 @@
 
 ### Navigation Menu
 
-This story requires that our progressive web app have an easy to use navigation menu that includes all our app’s views
+This story requires that our progressive web app have an easy to use navigation menu that includes all our app’s views.
 
-- [X] Create web framework for our web app
+- [X] Create a web framework for our web app.
 
-- [ ] Create a Navigation Menu that is easy to use and displays each app view
+- [ ] Create a Navigation Menu that is easy to use and displays each app view.
+
+- [ ] Create Test Cases to test if each link could navigate to the correct page.
 
 ---
 
 ###  Devices Page with Device Info
 
-This story requires our progressive web app to have information displayed in a readily available, clear and well formatted manner
+This story requires our progressive web app to have information displayed in a readily available, clear, and well-formatted manner.
 
 - [X] Write database queries to display device information
 
-- [X] Create an appropriate UI/UX for the user to view energy usage and other pertinent information ls
+- [X] Create an appropriate UI/UX for the user to view energy usage and other pertinent information
+
+- [ ] Create Test Cases to test if the Device Table could display a correct number of devices.
 
 ---
 
 ###  Device On/Off
 
-This story requires our progressive web app to display when a device was turned on and off
+This story requires our progressive web app to display when a device was turned on and off.
 
-- [X] Write database query(ies) to find device on or off (0 or 1)
+- [X] Write database query(ies) to find the device on or off (0 or 1)
 
-- [X] Add to interface to show device on/off data
+- [X] Add to interface to show the device on/off data
+
+- [ ] Create Test Cases to test if the Device Table displays the same as the data we had in the database
 
 
 ---
 
-### Current Power vs Average Power
+### Current Power vs. Average Power
 
-This story requires our progressive web app to display a comparison of a device’s current power consumption to its average power consumption
+This story requires our progressive web app to display a comparison of a device’s current power consumption to its average power consumption.
 
 - [ ] Write database queries and endpoint to get current and average power consumptions for a device
 
-- [ ] Add current power vs average power display to device page
+- [ ] Add current power vs. average power display to the device page
+
+- [ ] Create Test Cases to test if the Device Table displays the same as the data we had in the database
 
 ---
 
@@ -55,11 +63,23 @@ This story requires our progressive web app to display a comparison of a device�
 
 - [X] This story requires our progressive web app to allow the user to change the device information
 
-- [X] Add form to device page UI to enter the device information.
+- [X] Add form to devise page UI to enter the device information.
 
 - [X] Write new device information to the database
 
+- [ ] Create Test Cases to test if the Device Table could update the devices information.
+
+- [ ] Create Test Cases to test if the Device Table could delete a specific device.
+
 ---
+
+### Description of Refactoring
+
+`//TODO`
+
+
+
+***
 
 ## HW 7
 
@@ -128,6 +148,14 @@ This story requires our database to completely remove sensitive data and alert u
 - [ ] Write code to erase all records from database
 
 - [ ] Create notification for user, warning them erasing can’t be un-done as well as a separate notification when deletion is complete.
+
+---
+
+### Description of Refactoring
+
+`//TODO`
+
+
 
 ***
 
