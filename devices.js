@@ -22,7 +22,7 @@ module.exports = function() {
 
     //get information of single device
     function getDevice(res, mysql, context, device_id, done){
-        const sql_query = `SELECT devices.id, devices.name, devices.manufacturer, devices.deviceOnOff, devices.currentEnergyUsage FROM devices WHERE devices.id = ?`
+        const sql_query = `SELECT devices.id, devices.name, devices.manufacturer, devices.deviceOnOff, devices.currentEnergyUsage, devices.averageEnergyUsage FROM devices WHERE devices.id = ?`
         const inserts = [device_id];
         mysql.pool.query(sql_query, inserts, (err, result, fields) => {
             if(err){
@@ -110,8 +110,8 @@ module.exports = function() {
         console.log("Edit button pressed!");
         // console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ?, currentEnergyUsage = ? WHERE id = ?;`;
-        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.body.currentEnergyUsage, req.params.device_id];
+        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ?, currentEnergyUsage = ?, averageEnergyUsage = ? WHERE id = ?;`;
+        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.body.currentEnergyUsage, req.body.averageEnergyUsage, req.params.device_id];
 
         sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
         if(err) {

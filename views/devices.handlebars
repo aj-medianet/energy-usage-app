@@ -26,6 +26,7 @@
             <th scope = "col">Manufacturer</th>
             <th scope = "col">Device On/Off</th>
             <th scope = "col">Current Energy Usage</th>
+            <th scope = "col">Average Energy Usage</th>
             <th scope = "col">Adjust Device</th>    
             <th scope = "col">Delete</th>          
           </tr>
@@ -38,6 +39,7 @@
           <td>{{manufacturer}}</td>
           <td align="center">{{deviceOnOff}}</td>
           <td align="center">{{currentEnergyUsage}}</td>
+          <td align="center">{{averageEnergyUsage}}</td>
           <td><a href = "/devices/{{id}}"><button class= "btn btn-default btn-primary" >Adjust {{name}}</button></a></td>
           <td><button class= "btn btn-default btn-danger"  onclick= "deleteDevice({{id}})">Delete</button></td>
         </tr>
