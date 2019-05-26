@@ -30,6 +30,8 @@ This story requires our progressive web app to have information displayed in a r
 
 - [X] Create an appropriate UI/UX for the user to view energy usage and other pertinent information
 
+- [ ] Optimize the UI/UX
+
 - [ ] Create Test Cases to test if the Device Table could display a correct number of devices.
 
 ---
@@ -51,9 +53,11 @@ This story requires our progressive web app to display when a device was turned 
 
 This story requires our progressive web app to display a comparison of a device’s current power consumption to its average power consumption.
 
-- [ ] Write database queries and endpoint to get current and average power consumptions for a device
+- [X] Write database queries and endpoint to get current and average power consumptions for a device
 
-- [ ] Add current power vs. average power display to the device page
+- [X] Add current power vs. average power display to the device page
+
+- [ ] Optimize the UI/UX
 
 - [ ] Create Test Cases to test if the Device Table displays the same as the data we had in the database
 
