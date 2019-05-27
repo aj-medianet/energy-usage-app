@@ -42,7 +42,7 @@ module.exports = function() {
 
     //get 1 device from search
     function searchDevices(res, mysql, context, name, complete){
-        console.log('in searchDevices');
+        //console.log('in searchDevices');
         let sql = "SELECT * from devices WHERE devices.name = ?";
         let inserts = [name];
         mysql.pool.query(sql, inserts, function(error, results, fields){
@@ -111,13 +111,11 @@ module.exports = function() {
     });
 
     router.put('/:device_id', (req, res) => {
-        console.log("Edit button pressed!");
+        //console.log("Edit button pressed!");
         // console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ? WHERE id = ?;`;
         var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.params.device_id];
-
-        console.log(req.body);
 
         sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
         if(err) {
@@ -125,7 +123,7 @@ module.exports = function() {
         } else {
             res.status(200);
             res.end();
-            console.log("Updated Device");
+            //console.log("Updated Device");
         }
         });
     });
