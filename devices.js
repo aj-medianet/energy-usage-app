@@ -41,7 +41,8 @@ module.exports = function() {
     *************/
 
     //get 1 device from search 
-    function search(res, mysql, context, name, complete){
+    function searchDevices(res, mysql, context, name, complete){
+        console.log('in searchDevices');
         let sql = "SELECT * from devices WHERE devices.name = ?";
         let inserts = [name];
         mysql.pool.query(sql, inserts, function(error, results, fields){
@@ -58,11 +59,11 @@ module.exports = function() {
     router.get('/search', function(req, res){
         let callbackCount = 0;
         let context = {};
-        search(res, mysql, context, req.query.name, complete); 
+        searchDevices(res, mysql, context, req.query.name, complete); 
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
-                res.render('/', context);
+                res.render('devices', context);
             }
 
         }
