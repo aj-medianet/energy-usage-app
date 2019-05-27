@@ -38,7 +38,11 @@
           <td>{{name}}</td>
           <td>{{manufacturer}}</td>
           <td align="center">{{deviceOnOff}}</td>
-          <td align="center">{{currentEnergyUsage}}</td>
+            {{#if deviceOnOff}}
+                <td align="center">{{currentEnergyUsage}}</td>
+            {{else}}
+                <td align="center">0</td>
+            {{/if}}
           <td align="center">{{averageEnergyUsage}}</td>
           <td><a href = "/devices/{{id}}"><button class= "btn btn-default btn-primary" >Adjust {{name}}</button></a></td>
           <td><button class= "btn btn-default btn-danger"  onclick= "deleteDevice({{id}})">Delete</button></td>
