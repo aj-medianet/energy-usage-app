@@ -40,6 +40,8 @@ describe('GET /', () => {
       data.devices[0].currentEnergyUsage.should.equal(0);
       data.devices[0].averageEnergyUsage.should.equal(150);
 
+      data.devices.length.should.equal(6);
+
       done();
     });
   });
