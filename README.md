@@ -210,6 +210,17 @@ npm start
 
 ---
 
+## Pushing your code to the repo
+
+- How to push your code on mac/linux
+```
+git add .
+git commit -m "what you updated or worked on"
+git push
+```
+
+---
+
 ### Trouble Shooting for the database connection
 
 If there is an issue reporting **Client does not support authentication protocol requested by server; consider upgrading MySQL client**, run:
