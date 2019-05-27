@@ -35,6 +35,22 @@ app.get('/', function(req, res) {
 //route devices page
 app.use('/devices', require('./devices'));
 
+//hardcoded routing
+app.get('/login', (req, res) => {
+    res.render('login');
+})
+
+app.get('/faq', (req, res) => {
+    res.render('faq');
+})
+
+app.get('/setting', (req, res) => {
+    res.render('setting');
+})
+
+app.get('/logout', (req, res) => {
+    res.render('logout');
+})
 
 //error page handling
 app.use(function(req, res) {
