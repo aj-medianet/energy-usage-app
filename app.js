@@ -32,9 +32,6 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
-//route devices page
-app.use('/devices', require('./devices'));
-
 //hardcoded routing
 app.get('/login', (req, res) => {
     res.render('login');
@@ -51,6 +48,11 @@ app.get('/settings', (req, res) => {
 app.get('/logout', (req, res) => {
     res.render('logout');
 })
+
+//route devices page
+app.use('/devices', require('./devices'));
+
+
 
 //error page handling
 app.use(function(req, res) {
