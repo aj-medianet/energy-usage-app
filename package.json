@@ -4,7 +4,7 @@
   "description": "andrew's node site",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "pm2 start app.js",
     "restart": "pm2 restart app.js",
     "stop": "pm2 delete app.js"
