@@ -44,8 +44,8 @@ app.get('/faq', (req, res) => {
     res.render('faq');
 })
 
-app.get('/setting', (req, res) => {
-    res.render('setting');
+app.get('/settings', (req, res) => {
+    res.render('settings');
 })
 
 app.get('/logout', (req, res) => {
