@@ -25,8 +25,8 @@
             <th scope = "col">Name</th>
             <th scope = "col">Manufacturer</th>
             <th scope = "col">Device On/Off</th>
-            <th scope = "col">Current Energy Usage</th>
-            <th scope = "col">Average Energy Usage</th>
+            <th scope = "col">Current Energy Usage (in watts)</th>
+            <th scope = "col">Average Energy Usage (in watts)</th>
             <th scope = "col">Adjust Device</th>    
             <th scope = "col">Delete</th>          
           </tr>
@@ -37,7 +37,11 @@
           <th scope="row">{{@index}}</th>
           <td>{{name}}</td>
           <td>{{manufacturer}}</td>
-          <td align="center">{{deviceOnOff}}</td>
+            {{#if deviceOnOff}}
+                <td align="center">On</td>
+            {{else}}
+                <td align="center">Off</td>
+            {{/if}}
             {{#if deviceOnOff}}
                 <td align="center">{{currentEnergyUsage}}</td>
             {{else}}

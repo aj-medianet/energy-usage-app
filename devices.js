@@ -111,8 +111,8 @@ module.exports = function() {
         console.log("Edit button pressed!");
         // console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ?, currentEnergyUsage = ?, averageEnergyUsage = ? WHERE id = ?;`;
-        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.body.currentEnergyUsage, req.body.averageEnergyUsage, req.params.device_id];
+        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ? WHERE id = ?;`;
+        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.params.device_id];
 
         sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
         if(err) {
