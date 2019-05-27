@@ -2,10 +2,11 @@ const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
+const app = require("../app.js")
 
 describe('GET /', () => {
   it('should respond nav page', (done) => {
-    chai.request("http://localhost:3200")
+    chai.request(app)
     .get('/')
     .end((err, res) => {
       // there should be no errors
@@ -21,7 +22,7 @@ describe('GET /', () => {
 
 describe('GET /', () => {
   it('should respond nav page', (done) => {
-    chai.request("http://localhost:3200")
+    chai.request(app)
     .get('/devices/')
     .end((err, res) => {
       // there should be no errors
@@ -38,7 +39,7 @@ describe('GET /', () => {
 
 describe('GET /', () => {
   it('should respond nav page', (done) => {
-    chai.request("http://localhost:3200")
+    chai.request(app)
     .get('/devices/0')
     .end((err, res) => {
       // there should be no errors
@@ -55,7 +56,7 @@ describe('GET /', () => {
 
 describe('GET /', () => {
   it('should respond nav page', (done) => {
-    chai.request("http://localhost:3200")
+    chai.request(app)
     .get('/devices/search')
     .end((err, res) => {
       // there should be no errors
