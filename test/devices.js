@@ -21,7 +21,7 @@ describe('GET /', () => {
 });
 
 describe('GET /', () => {
-  it('should respond nav page', (done) => {
+  it('should respond devices page', (done) => {
     chai.request(app)
     .get('/devices/')
     .end((err, res) => {
@@ -31,16 +31,24 @@ describe('GET /', () => {
       res.status.should.equal(200);
       // the response should be JSON
       res.type.should.equal('text/html');
-      console.log(res.header.data);
+
+      var data = JSON.parse(res.header.data);
+
+      data.devices[0].id.should.equal(1);
+      data.devices[0].name.should.equal('Microwave');
+      data.devices[0].deviceOnOff.should.equal(0);
+      data.devices[0].currentEnergyUsage.should.equal(0);
+      data.devices[0].averageEnergyUsage.should.equal(150);
+
       done();
     });
   });
 });
 
 describe('GET /', () => {
-  it('should respond nav page', (done) => {
+  it('should respond device page', (done) => {
     chai.request(app)
-    .get('/devices/0')
+    .get('/devices/1')
     .end((err, res) => {
       // there should be no errors
       should.not.exist(err);
@@ -48,14 +56,22 @@ describe('GET /', () => {
       res.status.should.equal(200);
       // the response should be JSON
       res.type.should.equal('text/html');
-      console.log(res.header.data);
+
+      var data = JSON.parse(res.header.data);
+
+      data.device.id.should.equal(1);
+      data.device.name.should.equal('Microwave');
+      data.device.deviceOnOff.should.equal(0);
+      data.device.currentEnergyUsage.should.equal(0);
+      data.device.averageEnergyUsage.should.equal(150);
+
       done();
     });
   });
 });
 
 describe('GET /', () => {
-  it('should respond nav page', (done) => {
+  it('should respond search page', (done) => {
     chai.request(app)
     .get('/devices/search')
     .end((err, res) => {
@@ -65,7 +81,93 @@ describe('GET /', () => {
       res.status.should.equal(200);
       // the response should be JSON
       res.type.should.equal('text/html');
-      console.log(res.header.data);
+
+      done();
+    });
+  });
+});
+
+// describe('PUT /', () => {
+//   it('should update device in the database', (done) => {
+//
+//     var updatedDevice = {};
+//     updatedDevice.name = "Toaster";
+//     updatedDevice.manufacturer = "Toasty";
+//     updatedDevice.deviceOnOff = 1;
+//
+//     chai.request(app)
+//     .put('/devices/1')
+//     .send(updatedDevice)
+//     .end((err, res) => {
+//       // there should be no errors
+//       should.not.exist(err);
+//       // there should be a 200 status code
+//       res.status.should.equal(200);
+//
+//       done();
+//     });
+//
+//     chai.request(app)
+//     .get('/devices/1')
+//     .end((err, res) => {
+//       // there should be no errors
+//       should.not.exist(err);
+//       // there should be a 200 status code
+//       res.status.should.equal(200);
+//       // the response should be JSON
+//       res.type.should.equal('text/html');
+//
+//       var data = JSON.parse(res.header.data);
+//
+//       data.device.id.should.equal(1);
+//       data.device.name.should.equal('Toaster');
+//       data.device.deviceOnOff.should.equal(1);
+//       data.device.currentEnergyUsage.should.equal(0);
+//       data.device.averageEnergyUsage.should.equal(150);
+//
+//       done();
+//     });
+//   });
+// });
+
+describe('PUT /', () => {
+  it('should update to original device in the database', (done) => {
+
+    var origDevice = {};
+    origDevice.name = "Microwave";
+    origDevice.manufacturer = "Toshiba";
+    origDevice.deviceOnOff = 0;
+
+    chai.request(app)
+    .put('/devices/1')
+    .send(origDevice)
+    .end((err, res) => {
+      // there should be no errors
+      should.not.exist(err);
+      // there should be a 200 status code
+      res.status.should.equal(200);
+
+      done();
+    });
+
+    chai.request(app)
+    .get('/devices/1')
+    .end((err, res) => {
+      // there should be no errors
+      should.not.exist(err);
+      // there should be a 200 status code
+      res.status.should.equal(200);
+      // the response should be JSON
+      res.type.should.equal('text/html');
+
+      var data = JSON.parse(res.header.data);
+
+      data.device.id.should.equal(1);
+      data.device.name.should.equal('Microwave');
+      data.device.deviceOnOff.should.equal(0);
+      data.device.currentEnergyUsage.should.equal(0);
+      data.device.averageEnergyUsage.should.equal(150);
+
       done();
     });
   });

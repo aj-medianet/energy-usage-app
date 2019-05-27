@@ -117,6 +117,8 @@ module.exports = function() {
         var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ? WHERE id = ?;`;
         var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.params.device_id];
 
+        console.log(req.body);
+
         sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
         if(err) {
             res.send(500);
