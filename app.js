@@ -1,7 +1,7 @@
 const express = require('express');
 const methodOverride = require('method-override');
 
-//mysql 
+//mysql
 let mysql = require('./dbcon.js');
 const bodyParser = require('body-parser');
 

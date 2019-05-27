@@ -34,13 +34,13 @@ module.exports = function() {
             done();
         })
     }
-    
+
 
     /*************
     *** Search ***
     *************/
 
-    //get 1 device from search 
+    //get 1 device from search
     function searchDevices(res, mysql, context, name, complete){
         console.log('in searchDevices');
         let sql = "SELECT * from devices WHERE devices.name = ?";
@@ -59,17 +59,18 @@ module.exports = function() {
     router.get('/search', function(req, res){
         let callbackCount = 0;
         let context = {};
-        searchDevices(res, mysql, context, req.query.name, complete); 
+        searchDevices(res, mysql, context, req.query.name, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
+                res.setHeader('data', JSON.stringify(context));
                 res.render('devices', context);
             }
 
         }
     });
 
-    
+
 
     /********************************
     *** Main GET request for page ***
@@ -85,6 +86,7 @@ module.exports = function() {
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
+                res.setHeader('data', JSON.stringify(context));
                 res.render('devices', context);
             }
 
@@ -102,6 +104,7 @@ module.exports = function() {
             callbackCount++;
             if (callbackCount >= 1)
             {
+                res.setHeader('data', JSON.stringify(context));
                 res.render('updateDevice', context);
             }
         }
@@ -111,8 +114,8 @@ module.exports = function() {
         console.log("Edit button pressed!");
         // console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ?, currentEnergyUsage = ?, averageEnergyUsage = ? WHERE id = ?;`;
-        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.body.currentEnergyUsage, req.body.averageEnergyUsage, req.params.device_id];
+        var sql_query = `UPDATE devices SET name = ?, manufacturer = ?, deviceOnOff = ? WHERE id = ?;`;
+        var inserts = [req.body.name, req.body.manufacturer, req.body.deviceOnOff, req.params.device_id];
 
         sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
         if(err) {
