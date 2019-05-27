@@ -34,13 +34,13 @@ module.exports = function() {
             done();
         })
     }
-    
+
 
     /*************
     *** Search ***
     *************/
 
-    //get 1 device from search 
+    //get 1 device from search
     function searchDevices(res, mysql, context, name, complete){
         console.log('in searchDevices');
         let sql = "SELECT * from devices WHERE devices.name = ?";
@@ -59,17 +59,18 @@ module.exports = function() {
     router.get('/search', function(req, res){
         let callbackCount = 0;
         let context = {};
-        searchDevices(res, mysql, context, req.query.name, complete); 
+        searchDevices(res, mysql, context, req.query.name, complete);
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
+                res.setHeader('data', JSON.stringify(context));
                 res.render('devices', context);
             }
 
         }
     });
 
-    
+
 
     /********************************
     *** Main GET request for page ***
@@ -85,6 +86,7 @@ module.exports = function() {
         function complete(){
             callbackCount++;
             if(callbackCount >= 1){
+                res.setHeader('data', JSON.stringify(context));
                 res.render('devices', context);
             }
 
@@ -102,6 +104,7 @@ module.exports = function() {
             callbackCount++;
             if (callbackCount >= 1)
             {
+                res.setHeader('data', JSON.stringify(context));
                 res.render('updateDevice', context);
             }
         }
