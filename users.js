@@ -19,5 +19,9 @@ module.exports = function() {
     return res.render('settings');
   })
 
+  router.get('/settings/edit', (req, res) => {
+    return res.render('updateUser');
+  })
+
   return router;
 }();
