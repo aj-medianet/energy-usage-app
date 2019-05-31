@@ -132,24 +132,6 @@ module.exports = function() {
     /*************
     *** Delete ***
     *************/
-    /*
-
-     //delete
-    router.delete('/:id', function(req, res) {
-        let sql = "SET FOREIGN_KEY_CHECKS=0;delete from ski_areas where id=?; delete from elevation where id=?; delete from terrain where id=?; delete from forecast where id=?; ORDER BY nleft;SET FOREIGN_KEY_CHECKS=1;";
-        let inserts = [req.params.id,req.params.id, req.params.id, req.params.id];
-        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-            if (error) {
-                res.write(JSON.stringify(error));
-                res.status(400);
-                res.end();
-            } else {
-                res.status(202).end();
-            }
-        });
-    });
-    */
-
     router.delete('/:device_id', (req, res) => {
         console.log("Delete button pressed!");
 

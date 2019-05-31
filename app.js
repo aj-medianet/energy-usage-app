@@ -33,25 +33,13 @@ app.get('/', function(req, res) {
 });
 
 //hardcoded routing
-app.get('/login', (req, res) => {
-    res.render('login');
-})
-
 app.get('/faq', (req, res) => {
     res.render('faq');
 })
 
-app.get('/settings', (req, res) => {
-    res.render('settings');
-})
-
-app.get('/logout', (req, res) => {
-    res.render('logout');
-})
-
-//route devices page
+//route devices and users page
 app.use('/devices', require('./devices'));
-
+app.use('/', require('./users'));
 
 
 //error page handling
