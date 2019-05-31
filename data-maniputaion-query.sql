@@ -22,3 +22,17 @@ FROM devices Device
 WHERE Device.id = [selected_device_id]
 
 UPDATE devices SET name = "NEW", manufacturer = "NEW", deviceOnOff = 1, currentEnergyUsage = 100, averageEnergyUsage = 100 WHERE id = 1;
+
+
+-- Search for a single User
+
+SELECT id, name, password, email FROM users WHERE email = ?;
+
+-- Create User by Post Request
+
+INSERT INTO `users` (`name`,`password`,`email`) VALUES (?, ?, ?)
+
+-- Change the Name of User
+UPDATE users
+SET name = [updated_name], id = [user_id]
+WHERE id = [select_player_id];
