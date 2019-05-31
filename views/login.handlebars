@@ -8,6 +8,12 @@
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Login</h4>
       </div>
+      {{#if error_msg}}
+        <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          {{error_msg}}
+        </div>
+      {{/if}}
       <div class="modal-body mx-3">
         <div class="md-form mb-5 form-group">
           <label for="email"> Email </label>
