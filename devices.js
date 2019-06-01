@@ -83,7 +83,7 @@ module.exports = function() {
             let callbackCount = 0;
             let context = {};
             // context.jsscripts = ["spa.js"];
-            context.jsscripts = ["deletedevice.js"];
+            // context.jsscripts = ["deletedevice.js"];
             getDevices(res, mysql, context, complete);
             context.session = req.session;
     

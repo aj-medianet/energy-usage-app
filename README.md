@@ -47,8 +47,6 @@ This Story requires our progressive web app to display login fields with the use
 
 - [X] Create tables in the database for user information (Users Table - User Name/Email Address/Password)
 
-- [ ] Write code for prompting, and locking the user out after too many attempts
-
 - [X] Integrate with hashing function created during the account creation story
 
 - [X] Prompt services to display after successful login attempt
@@ -101,9 +99,9 @@ This Story requires our progressive web app to display existing account fields (
 
 This Story requires our database to remove sensitive data altogether and alert user clearly about what they are doing.
 
-- [ ] Write code to erase all records from the database
+- [X] Write code to erase all records from the database
 
-- [ ] Create a notification for user, warning them erasing can't be undone as well as a separate notification when the deletion is complete.
+- [X] Create a notification for user, warning them erasing can't be undone as well as a separate notification when the deletion is complete.
 
 ####  Refactor
 

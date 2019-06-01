@@ -195,6 +195,7 @@ module.exports = function() {
       callbackCount = 0;
       var context = {};
       var mysql = req.app.get('mysql');
+      context.jsscripts = ["deleteuser.js"];
       getUserInfo(res, mysql, context, req.session.email, done);
       function done() {
         callbackCount++;
@@ -205,7 +206,8 @@ module.exports = function() {
             session: req.session,
             id: req.session.id,
             name: req.session.name,
-            email: req.session.email
+            email: req.session.email,
+            jsscripts: context.jsscripts
           });
         }
       }
@@ -250,6 +252,23 @@ module.exports = function() {
       }
     });
   })
+
+  /* Delete user from database */
+  router.delete('/settings/:user_id', (req, res) => {
+    // console.log("Delete button pressed!");
+    var mysql = req.app.get('mysql');
+    var sql_query = "DELETE User FROM users User WHERE User.email = ?";
+    var inserts = req.session.email;
+
+    sql = mysql.pool.query(sql_query, inserts, (err, result, fields) => {
+        if(err) {
+            res.send(500);
+        } else {
+            res.status(202);
+            res.end();
+        }
+    });
+});
 
   return router;
 }();

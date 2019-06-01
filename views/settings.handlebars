@@ -6,7 +6,9 @@
 
         <h4>Name</h4>
         <p>
-            {{name}} <a href="/settings/{{id}}" class="btn btn-sm btn-info">Edit User Name</a>
+            {{name}} 
+                <a href="/settings/{{id}}" class="btn btn-sm btn-info">Edit User Name</a>
+                <td><button class= "btn btn-default btn-danger"  onclick= "deleteUser('{{id}}')">Delete {{name}}'s Account</button></td>
         </p>
 
         <h4>Email</h4>

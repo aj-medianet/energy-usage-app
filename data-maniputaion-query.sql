@@ -36,3 +36,8 @@ INSERT INTO `users` (`name`,`password`,`email`) VALUES (?, ?, ?)
 UPDATE users
 SET name = [updated_name], id = [user_id]
 WHERE id = [select_player_id];
+
+-- Delete the User
+DELETE Users
+FROM users Users
+WHERE Users.email = [selected_user_email]
