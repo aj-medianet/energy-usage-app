@@ -1,13 +1,22 @@
+{{#if success}}
+  <div class="success_msg">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    Welcome! {{name}} You are logged in.
+  </div>
+{{/if}}
 
-
-	<div class="row">
-
-
+<div class="row">
 		<div class="col-3 col-m-6 col-p-12 bottom-margin-20px">     
           <div class="row">
+          {{#if success}}
+           <div class="col-12 col-m-12 col-p-12">     
+              <a class="contact-links" href="/logout"><img src="images/logout.png"></a>
+          </div>
+          {{else}}
             <div class="col-12 col-m-12 col-p-12">     
               <a class="contact-links" href="/login"><img src="images/login.png"></a>
             </div>
+          {{/if}}
           </div>
           <div class="row">
             <div class="row">
@@ -50,7 +59,6 @@
             <div class="padding-fourty-sides col-12 col-m-12 col-p-12">     
 
               <p>View your user settings</p>
-              
 
             </div>
           </div>

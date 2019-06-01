@@ -35,9 +35,9 @@ This Story requires a single web page for user to read FAQs.
 
 This story requires our progressive web app to display login fields with the user’s login method chosen during creation
 
-- [ ] Create basic interface for prompting login via each selected method (biometric or password based)
+- [X] Create basic interface for prompting login via each selected method (biometric or password based)
 
-- [ ] Create tables in database for user information (Users Table - User Name/Email Address/Password)
+- [X] Create tables in database for user information (Users Table - User Name/Email Address/Password)
 
 - [ ] Write code for prompting, prompting, and locking user out after too many attempts
 

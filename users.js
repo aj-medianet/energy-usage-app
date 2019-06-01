@@ -53,10 +53,9 @@ module.exports = function() {
             /* If user login was successful, setup the user session */
             req.session.cookie.maxAge = 60 * 60 * 1000;
             req.session.email = context.user.email;
-            req.flash('success_msg', 'You are logged in.')
-
             return res.render('home', {
               title: 'Home',
+              name: context.user.name,
               success: true,
               response: 'Login successful!',
               session: req.session,
@@ -67,9 +66,6 @@ module.exports = function() {
             req.flash('error_msg', 'Passpword is incorrect!')
             return res.redirect('/login')           
           }
-
-
-          
         }
         else
         {
@@ -78,14 +74,9 @@ module.exports = function() {
         } 
       }
     }
-
-
   })
 
   router.get('/logout', (req, res) => {
-    // req.logout()
-    // req.flash('success_msg', 'You are logged out.')
-    // return res.redirect('./login')
     req.session.destroy((err) => {
       if(err){
          console.log(err);
@@ -108,6 +99,8 @@ module.exports = function() {
       return res.render('signup');
     }
   });
+
+
 
   router.get('/settings', (req, res) => {
     /* hardcoded */

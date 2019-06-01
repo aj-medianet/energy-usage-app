@@ -2193,6 +2193,13 @@ textarea.form-control {
   margin-bottom: 15px;
 }
 
+.success_msg {
+  padding: 20px;
+  background-color: #182ac5; /* Blue */
+  color: white;
+  margin-bottom: 15px;
+}
+
 /* The close button */
 .closebtn {
   margin-left: 15px;
