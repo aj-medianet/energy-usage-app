@@ -192,11 +192,23 @@ module.exports = function() {
   router.get('/settings', (req, res) => {
     if(req.session.email != null)
     {
-      return res.render('settings', {
-        session: req.session,
-        name: req.session.name,
-        email: req.session.email
-      });
+      callbackCount = 0;
+      var context = {};
+      var mysql = req.app.get('mysql');
+      getUserInfo(res, mysql, context, req.session.email, done);
+      function done() {
+        callbackCount++;
+        if (callbackCount >= 1)
+        {
+          req.session.name = context.user.name; // Update user name
+          return res.render('settings', {
+            session: req.session,
+            id: req.session.id,
+            name: req.session.name,
+            email: req.session.email
+          });
+        }
+      }
     }
     else
     {
@@ -206,12 +218,37 @@ module.exports = function() {
   })
 
   /* Redirect to Update Page */
-  router.get('/settings/edit', (req, res) => {
-    return res.render('updateUser');
+  router.get('/settings/:user_id', (req, res) => {
+    callbackCount = 0;
+    var context = {};
+    context.url = req.params;
+    getUserInfo(res, mysql, context, req.session.email, done);
+    function done() {
+      callbackCount++;
+      if (callbackCount >= 1)
+      {
+        return res.render('updateUser', context);
+      }
+    }
   })
+
+
   /* Udate User Table */
-  router.put('/setting/:user_id', (req, res) => {
-    return res.redirect('/settings');
+  router.post('/settings/:user_id', (req, res) => {
+    const email = req.session.email;
+    const updatedName = req.body.updatedName;
+    var mysql = req.app.get('mysql');
+    var sql_query = `UPDATE users SET name = ? WHERE email = ?`;
+    var inserts = [updatedName, email];
+
+    sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
+      if(err) {
+          res.send(500);
+      } else {
+          console.log("Updated User Name");
+          return res.redirect('/settings');
+      }
+    });
   })
 
   return router;

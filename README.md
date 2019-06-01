@@ -89,7 +89,7 @@ This Story requires our progressive web app to display existing account fields (
 
 - [X] Create a primary interface for adjusting user fields (/Settings)
 
-- [ ] Write code to handle database updating
+- [X] Write code to handle database updating
 
 ####  Refactor
 

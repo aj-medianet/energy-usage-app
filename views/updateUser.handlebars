@@ -3,21 +3,27 @@
 <div class="form-container">
 
   <div class="modal-dialog" role="document">
-    <form id="signup" action="/setting/edit" method="POST">
+    <form id="signup" action="/settings/{{url.user_id}}" method="POST">
     <div class="modal-content">
       <div class="modal-header text-center">
         <p class="modal-title w-100 font-weight-bold">Edit User Information for <strong>Email Address</strong></p>
       </div>
-      <div class="modal-body mx-3">
+        <div class="modal-body mx-3">
         <div class="md-form mb-5 form-group">
-          <label for="name"> Current User Name </label>
-          <input type="name" id="name" name="name" class="form-control validate" placeholder="Group 17 Member" disabled="disabled">
+          <label for="email"> Email </label>
+          <input type="email" id="email" name="email" class="form-control validate" placeholder="{{user.email}}" value="{{user.email}}" disabled="disabled">
         </div>
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5 form-group">
-          <label for="name"> Latest User Name </label>
-          <input type="name" id="name" name="name" class="form-control validate" placeholder="New Group 17 Member">
+          <label for="name"> Current User Name </label>
+          <input type="name" id="name" name="name" class="form-control validate" placeholder="{{user.name}}" disabled="disabled">
+        </div>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5 form-group">
+          <label for="updatedName"> Latest User Name </label>
+          <input type="updatedName" id="updatedName" name="updatedName" class="form-control validate">
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
