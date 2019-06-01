@@ -41,9 +41,9 @@ This story requires our progressive web app to display login fields with the use
 
 - [ ] Write code for prompting, prompting, and locking user out after too many attempts
 
-- [ ] Integrate with hashing function created during account creation story
+- [X] Integrate with hashing function created during account creation story
 
-- [ ] Prompt services to display after successful login attempt
+- [X] Prompt services to display after successful login attempt
 
 ---
 
@@ -51,11 +51,10 @@ This story requires our progressive web app to display login fields with the use
 
 This story requires our progressive web app to display first time login fields and the ability for biometric input capability later in development
 
-- [ ] Create a basic interface for user to enter basic information. (/Signup)
+- [X] Create a basic interface for user to enter basic information. (/Signup)
 
 - [ ] Create hashing function for storing user password
 
-- [ ] Add dummy buttons for later implementation of biometric login
 
 ---
 
@@ -63,7 +62,7 @@ This story requires our progressive web app to display first time login fields a
 
 This story requires our progressive web app to display existing account fields (except password) and allow users to edit them
 
-- [ ] Create a basic interface for adjusting user fields (/Settings)
+- [X] Create a basic interface for adjusting user fields (/Settings)
 
 - [ ] Write code to handle database updating
 

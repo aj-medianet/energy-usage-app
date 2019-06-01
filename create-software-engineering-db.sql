@@ -25,4 +25,4 @@ CREATE TABLE `users` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB;
 
-INSERT INTO `users` VALUES (1, 'Tester', 'test@test.com', 'test');
+INSERT INTO `users` VALUES (1, 'Tester', 'test@test.com', 'U2FsdGVkX19Zx0RoRLzCb4QRoH3ZyxgOv1bCMQyKfhc=');

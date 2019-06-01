@@ -2,6 +2,7 @@ module.exports = function() {
   let express = require('express');
   let router = express.Router();
   let mysql = require('./dbcon.js');
+  let CryptoJS = require("crypto-js");
 
   function getUserInfo(res, mysql, context, user_email, done){
     const sql_query = `SELECT id, name, email, password FROM users WHERE email = ?`
@@ -39,16 +40,21 @@ module.exports = function() {
       callbackCount++;
       if (callbackCount >= 1)
       {
-        console.log(context);
+        // console.log(context);
         /* Find if user exists in the DB */
         if(context.user != null)
         {
           /* Compare the password */
           const user_input_password = req.body.password;
           const user_actual_password = context.user.password;
-          console.log(user_input_password)
-          console.log(user_actual_password)
-          if(user_input_password === user_actual_password)
+
+          // var ciphertext = CryptoJS.AES.encryuser_input_passwordpt(, 'KEY');
+          // console.log(ciphertext.toString());
+
+          const bytes  = CryptoJS.AES.decrypt(user_actual_password, 'KEY');
+          const user_actual_password_decoded = bytes.toString(CryptoJS.enc.Utf8).toString();
+
+          if(user_input_password === user_actual_password_decoded)
           {
             /* If user login was successful, setup the user session */
             req.session.cookie.maxAge = 60 * 60 * 1000;
