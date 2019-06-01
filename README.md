@@ -29,13 +29,13 @@ This Story requires to display the local time zone of the user in UI.
 
 This Story requires a single web page for user to read FAQs.
 
-- [ ] Create a static web page with FAQs contents hardcoded in UI.
+- [X] Create a static web page with FAQs contents hardcoded in UI.
 
 - [X] Add FAQs tag in the Navigation Menu
 
 ####  Refactor
 
-`//TODO`
+There is no need to modify the code since it is a static web page; what we've done is to adding content into the HTML (handlebars) file.
 
 ---
 
@@ -75,7 +75,11 @@ This Story requires our progressive web app to display first-time login fields a
 
 ####  Refactor - Flesh Message
 
-`//TODO`
+In the previous version, we did not inform our users after they log in or sign up, therefore, once users have registered they would be redirected to the login page, once users have logged in they would be redirected to the Home Page.
+
+To make the workflow much clearer, we reused the session above to store the message about successful or error status. Our system will push the error messages included  "Please log in before visiting Devices Page," "Password is incorrect!", "Email does not exist" and "Please log in before visiting Settings Page," as well as a successful message included "You are logged in." and "You are now registered and can log in," into the session. The browser will render those messages by checking the if there are any messages stored in our session sending from Web Server.
+
+To refactor this implementation, we used one additional third-party library, flesh-connect, to store customized message into our session. 
 
 ---
 
