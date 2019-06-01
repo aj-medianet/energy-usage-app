@@ -15,9 +15,9 @@
 
 This Story requires to display the local time zone of the user in UI.
 
-- [ ] Create a primary interface for the user to see the local time.
+- [X] Create a primary interface for the user to see the local time.
 
-- [ ] Implement a frontend logic to retrieve local time from the user's device.
+- [X] Implement a frontend logic to retrieve local time from the user's device.
 
 ####  Refactor
 
@@ -47,7 +47,7 @@ This Story requires our progressive web app to display login fields with the use
 
 - [X] Create tables in the database for user information (Users Table - User Name/Email Address/Password)
 
-- [ ] Write code for prompting, prompting, and locking the user out after too many attempts
+- [ ] Write code for prompting, and locking the user out after too many attempts
 
 - [X] Integrate with hashing function created during the account creation story
 

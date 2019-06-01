@@ -25,10 +25,11 @@
 				<div class="col-3 col-m-9 col-p-8 bottom-margin-20px">
 					<a style="text-decoration: none" href="/">
 						<div id="siteTitle">
-							Energy App
+							Energy App 					
 						</div>
 					</a>
 				</div>
+
 				<div class="nav-wrapper col-9 col-m-3 col-p-4">
 					<div class="topNav" id="nav">
 						<a href="javascript:void(0);" class="icon" onclick="dropdown()">&#9776;</a>
@@ -89,7 +90,9 @@
 
 					</div>
 				</div>
-
+				<p class="marquee">
+					<span id="dtText"></span>
+				</p>
 				<div class="row">
 					<div class="col-12 col-m-12 col-p-12 top-margin-75">
 						<div class="bottomNav">
@@ -136,5 +139,8 @@
 		</div>
 		<script src="/global.js"></script>
 </body>
-
+<script>
+	var today = new Date();
+	document.getElementById('dtText').innerHTML=today;
+</script>
 </html>
