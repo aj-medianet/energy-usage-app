@@ -22,7 +22,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
 
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB;
 
 INSERT INTO `users` VALUES (1, 'Tester', 'test@test.com', 'U2FsdGVkX19Zx0RoRLzCb4QRoH3ZyxgOv1bCMQyKfhc=');

@@ -53,9 +53,6 @@ module.exports = function() {
           const user_input_password = req.body.password;
           const user_actual_password = context.user.password;
 
-          // var ciphertext = CryptoJS.AES.encryuser_input_passwordpt(, 'KEY');
-          // console.log(ciphertext.toString());
-
           /* Decrypt the password stored in DB */
           const bytes  = CryptoJS.AES.decrypt(user_actual_password, 'KEY');
           const user_actual_password_decoded = bytes.toString(CryptoJS.enc.Utf8).toString();
@@ -126,13 +123,63 @@ module.exports = function() {
 
   router.post('/signup', (req, res) => {
     /* See if the input email exists in DB */
+      const {email, name, password, confirmPassword} = req.body
+      let errors = []
+      if(password != confirmPassword) {
+        errors.push({ msg: 'Password do not match.'})
+      }
 
-      /* Encode User insert passport */
+      console.log(errors)
 
-      /* Store User information into DB */
+      if(errors.length > 0) 
+      {
+        return res.render('signup', {errors, email, name, password, confirmPassword})
+      }
+      else 
+      {
+        /* Check if the user is in the DB */  
+        callbackCount = 0;
+        var context = {};
+        var mysql = req.app.get('mysql');
+        getUserInfo(res, mysql, context, email, done);
 
-      /* Refirect to the login page with flesh message - signup success */
-    return res.redirect("./login")
+        function done() {
+          callbackCount++;
+          if (callbackCount >= 1)
+          {
+            if (context.user) 
+            {
+              console.log(context.user)
+              /* Found the user in the DB */
+              errors.push({ msg : 'Email already exists.'});
+              return res.render('signup', {errors, email, name, password, confirmPassword})      
+            }
+            else 
+            {
+               /* Encode User insert passport */
+              const hashed_password = CryptoJS.AES.encrypt(password, 'KEY');
+              // console.log(email);
+              // console.log(name);
+              // console.log(hashed_password.toString());
+              
+              /* Store User information into DB */
+              let sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+              let inserts = [name, email, hashed_password.toString()];
+              sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
+                  if (error) {
+                      res.write(JSON.stringify(error));
+                      res.end()
+                  } else {
+                      console.log("New User created: " + email)
+                      /* Redirect to the login page with flesh message - signup success */
+                      req.flash('success_msg', 'You are now registered and can log in.')
+                      return res.redirect('/login')
+                  }
+              })
+            } // Not in DB
+          } // Search in DB
+        } // Callback
+      } // Same input passport
   })
 
 

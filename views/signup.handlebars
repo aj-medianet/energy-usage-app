@@ -8,22 +8,32 @@
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">User Signup</h4>
       </div>
+
+      {{#each errors}}
+        <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          {{ msg }}
+        </div>
+      {{else}}
+      
+      {{/each}}
+
       <div class="modal-body mx-3">
         <div class="md-form mb-5 form-group">
           <label for="email"> Email </label>
-          <input type="email" id="email" name="email" class="form-control validate" placeholder="abc@gmail.com" required>
+          <input type="email" id="email" name="email" class="form-control validate" placeholder="abc@gmail.com" value = "{{email}}" required>
         </div>
         <div class="md-form mb-5 form-group">
           <label for="name"> User Name </label>
-          <input type="name" id="name" name="name" class="form-control validate" placeholder="Group 17 Member">
+          <input type="name" id="name" name="name" class="form-control validate" placeholder="Group 17 Member" value = "{{name}}">
         </div>
         <div class="md-form mb-5 form-group">
           <label for="password"> Password </label>
-          <input type="password" id="password" name="password" class="form-control validate" placeholder="*******" required>
+          <input type="password" id="password" name="password" class="form-control validate" placeholder="*******" value = "{{password}}" required>
         </div>
         <div class="md-form mb-5 form-group">
           <label for="confirmPassword"> Confirm Password </label>
-          <input type="confirmPassword" id="confirmPassword" name="confirmPassword" class="form-control validate" placeholder="*******" required>
+          <input type="confirmPassword" id="confirmPassword" name="confirmPassword" class="form-control validate" placeholder="*******" value = "{{confirmPassword}}" required>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
