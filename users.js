@@ -62,6 +62,7 @@ module.exports = function() {
             /* If user login was successful, setup the user session */
             req.session.cookie.maxAge = 60 * 60 * 1000;
             req.session.email = context.user.email;
+            req.session.name = context.user.name;
             /* Render HOME page with session information updated */
             return res.render('home', {
               title: 'Home',
@@ -189,12 +190,19 @@ module.exports = function() {
  
   /* Get all User information from DB */
   router.get('/settings', (req, res) => {
-    /* hardcoded */
-    return res.render('settings', {
-      session: req.session,
-      name: "test",
-      email: "test@test.com"
-    });
+    if(req.session.email != null)
+    {
+      return res.render('settings', {
+        session: req.session,
+        name: req.session.name,
+        email: req.session.email
+      });
+    }
+    else
+    {
+      req.flash('error_msg', 'Please log in before visiting Settings Page')
+      return res.redirect('./login');
+    }
   })
 
   /* Redirect to Update Page */

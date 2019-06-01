@@ -77,21 +77,30 @@ module.exports = function() {
     ********************************/
 
     router.get('/', function(req, res){
-        let callbackCount = 0;
-        let context = {};
-        // context.jsscripts = ["spa.js"];
-        context.jsscripts = ["deletedevice.js"];
-        getDevices(res, mysql, context, complete);
-        context.session = req.session;
 
-        function complete(){
-            callbackCount++;
-            if(callbackCount >= 1){
-                res.setHeader('data', JSON.stringify(context));
-                res.render('devices', context);
+        if(req.session.email != null)
+        {
+            let callbackCount = 0;
+            let context = {};
+            // context.jsscripts = ["spa.js"];
+            context.jsscripts = ["deletedevice.js"];
+            getDevices(res, mysql, context, complete);
+            context.session = req.session;
+    
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 1){
+                    res.setHeader('data', JSON.stringify(context));
+                    res.render('devices', context);
+                }
             }
-
         }
+        else
+        {
+          req.flash('error_msg', 'Please log in before visiting Devices Page')
+          return res.redirect('./login');
+        }
+
     });
 
     /* Update Device */
