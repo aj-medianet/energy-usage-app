@@ -1,33 +1,34 @@
-const express = require('express');
-const methodOverride = require('method-override');
-const session = require('express-session');
-const flash = require('connect-flash')
-
-//mysql
-let mysql = require('./dbcon.js');
-const bodyParser = require('body-parser');
-
-//express stuff
-const app = express();
-
-let handlebars = require('express-handlebars').create({
-    defaultLayout: 'main'
-});
-let credentials = require('./credentials.js');
-let request = require('request');
+const express         = require('express');
+const app             = express();
+const methodOverride  = require('method-override');
+const session         = require('express-session');
+const flash           = require('connect-flash')
+const bodyParser      = require('body-parser');
+const credentials     = require('./credentials.js');
+const request         = require('request');
+const mysql           = require('./dbcon.js'); //mysql
+const handlebars      = require('express-handlebars').create({
+                          defaultLayout: 'main'
+                        });
 
 app.engine('handlebars', handlebars.engine);
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+/* Method Override for PUT Request */
 app.use(methodOverride('_method'));
+
+/* Session for the User Authentication */
 app.use(session({
     secret: 'password',
     resave: false,
     saveUninitialized: false,
 }));
 
+/* Flash Message */
 app.use(flash())
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
@@ -36,7 +37,7 @@ app.use(function(req, res, next) {
   next();
 });
   
-
+/* Web App Setup */
 app.set('view engine', 'handlebars');
 app.set('port', 3200);
 app.set('mysql', mysql);
@@ -44,7 +45,7 @@ app.use(express.static('public'));
 
 //home page
 app.get('/', function(req, res) {
-    /* Check if user login */
+    /* Check if user has logged in */
     if(req.session.email != null)
     {
         /* If user login was successful, setup the user session */
@@ -61,7 +62,7 @@ app.get('/', function(req, res) {
       }
       else
       {
-        /* User did login */
+        /* User did log in */
         res.render('home');
       }
 });
@@ -79,7 +80,6 @@ app.get('/faq', (req, res) => {
 //route devices and users page
 app.use('/devices', require('./devices'));
 app.use('/', require('./users'));
-
 
 //error page handling
 app.use(function(req, res) {

@@ -14,6 +14,12 @@
           {{error_msg}}
         </div>
       {{/if}}
+      {{#if success_msg}}
+        <div class="success_msg">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          {{success_msg}}
+        </div>
+      {{/if}}
       <div class="modal-body mx-3">
         <div class="md-form mb-5 form-group">
           <label for="email"> Email </label>
