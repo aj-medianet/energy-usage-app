@@ -44,12 +44,36 @@ app.use(express.static('public'));
 
 //home page
 app.get('/', function(req, res) {
-    res.render('home');
+    /* Check if user login */
+    if(req.session.email != null)
+    {
+        /* If user login was successful, setup the user session */
+        req.session.cookie.maxAge = 60 * 60 * 1000;
+        req.session.email = req.session.email;
+        req.flash('success_msg', 'You are logged in.')
+
+        return res.render('home', {
+          title: 'Home',
+          success: true,
+          response: 'Login successful!',
+          session: req.session,
+        });
+      }
+      else
+      {
+        /* User did login */
+        res.render('home');
+      }
 });
 
 //hardcoded routing
 app.get('/faq', (req, res) => {
-    res.render('faq');
+    res.render('faq', {
+        title: 'Home',
+        success: true,
+        response: 'Login successful!',
+        session: req.session,
+      });
 })
 
 //route devices and users page

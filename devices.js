@@ -82,6 +82,7 @@ module.exports = function() {
         // context.jsscripts = ["spa.js"];
         context.jsscripts = ["deletedevice.js"];
         getDevices(res, mysql, context, complete);
+        context.session = req.session;
 
         function complete(){
             callbackCount++;

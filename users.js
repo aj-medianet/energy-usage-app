@@ -4,7 +4,7 @@ module.exports = function() {
   let mysql = require('./dbcon.js');
 
   function getUserInfo(res, mysql, context, user_email, done){
-    const sql_query = `SELECT id, name, email FROM users WHERE email = ?`
+    const sql_query = `SELECT id, name, email, password FROM users WHERE email = ?`
     const inserts = [user_email];
     mysql.pool.query(sql_query, inserts, (err, result, fields) => {
         if(err){
@@ -19,14 +19,9 @@ module.exports = function() {
 
   router.get('/login', (req, res) => {
     /* User has already login */
-    if(req.session.user != null)
+    if(req.session.email != null)
     {
-      return res.render('home', {
-        title: 'Home',
-        success: true,
-        response: 'Login successful!',
-        session: req.session,
-      });
+      return res.redirect('./');
     }
     else
     {
@@ -49,7 +44,32 @@ module.exports = function() {
         if(context.user != null)
         {
           /* Compare the password */
-          return res.send("Found User!")
+          const user_input_password = req.body.password;
+          const user_actual_password = context.user.password;
+          console.log(user_input_password)
+          console.log(user_actual_password)
+          if(user_input_password === user_actual_password)
+          {
+            /* If user login was successful, setup the user session */
+            req.session.cookie.maxAge = 60 * 60 * 1000;
+            req.session.email = context.user.email;
+            req.flash('success_msg', 'You are logged in.')
+
+            return res.render('home', {
+              title: 'Home',
+              success: true,
+              response: 'Login successful!',
+              session: req.session,
+            });
+          }
+          else
+          {
+            req.flash('error_msg', 'Passpword is incorrect!')
+            return res.redirect('/login')           
+          }
+
+
+          
         }
         else
         {
@@ -59,19 +79,43 @@ module.exports = function() {
       }
     }
 
-    /* If user login was successful, setup the user session */
+
   })
 
   router.get('/logout', (req, res) => {
-    return res.send('Logout Success Message Sent!')
+    // req.logout()
+    // req.flash('success_msg', 'You are logged out.')
+    // return res.redirect('./login')
+    req.session.destroy((err) => {
+      if(err){
+         console.log(err);
+      }
+      else
+      {
+        res.redirect('/login');
+      }
+   });
   });
 
   router.get('/signup', (req, res) => {
-    return res.render('signup')
+    /* User has already login */
+    if(req.session.email != null)
+    {
+      return res.redirect('./');
+    }
+    else
+    {
+      return res.render('signup');
+    }
   });
 
   router.get('/settings', (req, res) => {
-    return res.render('settings');
+    /* hardcoded */
+    return res.render('settings', {
+      session: req.session,
+      name: "test",
+      email: "test@test.com"
+    });
   })
 
   router.get('/settings/edit', (req, res) => {

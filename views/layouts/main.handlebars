@@ -33,7 +33,11 @@
 					<div class="topNav" id="nav">
 						<a href="javascript:void(0);" class="icon" onclick="dropdown()">&#9776;</a>
 						<a href="/">Home</a>
-						<a href="/login">Login</a>
+						{{#if session.email}}
+							<a href="/logout">Logout</a>
+						{{else}}
+							<a href="/login">Login</a>
+						{{/if}}
 						<a href="/settings">Settings</a>
 						<a href="/devices">Devices</a>
 						<a href="/faq">FAQ</a>
