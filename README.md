@@ -13,11 +13,15 @@
 
 ### Display local time zone
 
-This story requires to display the local time zone of the user in UI.
+This Story requires to display the local time zone of the user in UI.
 
-- [ ] Create a basic interface for the user to see the local time.
+- [ ] Create a primary interface for the user to see the local time.
 
 - [ ] Implement a frontend logic to retrieve local time from the user's device.
+
+####  Refactor
+
+`//TODO`
 
 ---
 
@@ -29,56 +33,75 @@ This Story requires a single web page for user to read FAQs.
 
 - [X] Add FAQs tag in the Navigation Menu
 
+####  Refactor
+
+`//TODO`
+
 ---
 
 ### Login
 
-This story requires our progressive web app to display login fields with the user’s login method chosen during creation
+This Story requires our progressive web app to display login fields with the user's login method chosen during creation.
 
-- [X] Create basic interface for prompting login via each selected method (biometric or password based)
+- [X] Create a primary interface for prompting login via each selected method (biometric or password based)
 
-- [X] Create tables in database for user information (Users Table - User Name/Email Address/Password)
+- [X] Create tables in the database for user information (Users Table - User Name/Email Address/Password)
 
-- [ ] Write code for prompting, prompting, and locking user out after too many attempts
+- [ ] Write code for prompting, prompting, and locking the user out after too many attempts
 
-- [X] Integrate with hashing function created during account creation story
+- [X] Integrate with hashing function created during the account creation story
 
 - [X] Prompt services to display after successful login attempt
+
+####  Refactor - Used Session to do the Authentication
+
+The first time we implemented this feature, we just compare the email account and password that the user has input exits in our database so that user can be recognized as someone who has registered into our database. But we could not do the authentication if we did not record who are logged in to our website and whether we would give permission to the user. 
+
+Therefore, we used a session that could be read by the browser in frontend to record who's using our website. Once the user has logged in, both backend and frontend will synchronize the same session information writing with the user's email address and the user's name. By doing so; First, if the user has logged in, he or she would not reaccess the login page, our web server will redirect them to the Home Page. Secondly,  when the user tries to visit other pages, those APIs can use the session sent with the request from the browser to determine if it's going to rendering the web page or redirect the user to the login page for getting the permission.
+
+To refactor this implementation, we used one additional third-party library, express-session, to simplify the work that complicated task for handling session in the web browser. 
+
+In the future, we plan to do the Authorization for the admiration account, and we could use this session to record the identification of that specific account as well. 
 
 ---
 
 ### Account Creation
 
-This story requires our progressive web app to display first time login fields and the ability for biometric input capability later in development
+This Story requires our progressive web app to display first-time login fields and the ability for biometric input capability later in development.
 
-- [X] Create a basic interface for user to enter basic information. (/Signup)
+- [X] Create a basic interface for the user to enter basic information. (/Signup)
 
-- [ ] Create hashing function for storing user password
+- [X] Create a hashing function for storing user password
 
+####  Refactor - Flesh Message
+
+`//TODO`
 
 ---
 
 ### Account Editing 
 
-This story requires our progressive web app to display existing account fields (except password) and allow users to edit them
+This Story requires our progressive web app to display existing account fields (except the password) and allow users to edit them.
 
-- [X] Create a basic interface for adjusting user fields (/Settings)
+- [X] Create a primary interface for adjusting user fields (/Settings)
 
 - [ ] Write code to handle database updating
+
+####  Refactor
+
+`//TODO`
 
 ---
 
 ### Delete Account 
 
-This story requires our database to completely remove sensitive data and alert user clearly about what they are doing
+This Story requires our database to remove sensitive data altogether and alert user clearly about what they are doing.
 
-- [ ] Write code to erase all records from database
+- [ ] Write code to erase all records from the database
 
-- [ ] Create notification for user, warning them erasing can’t be un-done as well as a separate notification when deletion is complete.
+- [ ] Create a notification for user, warning them erasing can't be undone as well as a separate notification when the deletion is complete.
 
----
-
-### Description of Refactoring
+####  Refactor
 
 `//TODO`
 
