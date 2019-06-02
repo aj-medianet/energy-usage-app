@@ -151,7 +151,41 @@ This Story requires our database to remove sensitive data altogether and alert u
 
 ####  Refactor
 
-`//TODO`
+Basically, we redo what we've done for the user controller to devise controller to enhance the readability and consistency of our codebase.
+
+Here's how we simply the codes:
+
+- devices.js
+
+```js
+/* device page from search */
+router.get('/search', deviceController.getSearchResult);
+
+/* get all device information */
+router.get('/', deviceController.getAllDevices);
+
+/* Get the information of selected Device */
+router.get('/:device_id', deviceController.getSingleDevice);
+
+/* Update Device */
+router.put('/:device_id', deviceController.updateSingleDevice);
+```
+
+- deviceController.js
+
+```js
+
+let deviceController = {
+  getSearchResult: (req, res) => { /* Code implementation */ },
+  getAllDevices: (req, res) => { /* Code implementation */ },
+  getSingleDevice: (req, res) => { /* Code implementation */ },
+  updateSingleDevice: (req, res) => { /* Code implementation */ },
+  deleteSingleDevice: (req, res) => { /* Code implementation */ }
+}
+module.exports = deviceController
+
+```
+
 
 ***
 
