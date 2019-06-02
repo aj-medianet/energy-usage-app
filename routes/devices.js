@@ -1,7 +1,7 @@
 module.exports = function() {
     let express = require('express');
     let router = express.Router();
-    let mysql = require('./dbcon.js');
+    let mysql = require('../dbcon.js');
 
 
     /***************************************

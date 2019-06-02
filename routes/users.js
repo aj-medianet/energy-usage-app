@@ -1,9 +1,9 @@
 module.exports = function() {
   const express   = require('express');
   const router    = express.Router();
-  const mysql     = require('./dbcon.js');
+  const mysql     = require('../dbcon.js');
   const CryptoJS  = require("crypto-js");
-  const userController = require('./controllers/userController')
+  const userController = require('../controllers/userController')
 
   /********************************
   *** Main requests for Login   ***

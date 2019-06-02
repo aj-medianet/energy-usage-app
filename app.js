@@ -78,8 +78,8 @@ app.get('/faq', (req, res) => {
 })
 
 //route devices and users page
-app.use('/devices', require('./devices'));
-app.use('/', require('./users'));
+app.use('/devices', require('./routes/devices'));
+app.use('/', require('./routes/users'));
 
 //error page handling
 app.use(function(req, res) {
