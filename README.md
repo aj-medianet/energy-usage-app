@@ -19,9 +19,9 @@ This Story requires to display the local time zone of the user in UI.
 
 - [X] Implement a frontend logic to retrieve local time from the user's device.
 
-####  Refactor
+####  Refactor 
 
-`//TODO`
+There is no need to modify the code since it is a static web page; what we've done is to adding styling, js codes and outline into the HTML (handlebars) file.
 
 ---
 
@@ -89,9 +89,55 @@ This Story requires our progressive web app to display existing account fields (
 
 - [X] Write code to handle database updating
 
-####  Refactor
+####  Refactor - Split up the Router and Contorller
 
-`//TODO`
+To enhance the readabilities, we split up Routes and Controllers into two different folders and files. Take users.js, for example, in this user router; we have different kinds of APIs that would be called from the app.js, which is our Web Server. 
+
+There are main requests for Login, main requests for Logout,  main requests for Signup, and Main requests for Settings. We wrap and hide the implementation for each API into a controller called userController.js. Inside the userControllers, there are different kinds of implementations for those API and the manipulation with the database as well as URL direction all happens here in the controllers. 
+
+By doing so, if anyone in our team needs to change the routing, then, he or she only needs to look into users.js and someone who's going to fix the bug or defect for the user cases, the bug might only appear inside controller files.
+
+
+Here's how we simply the codes:
+
+- users.js
+
+```js
+  // Main requests for Login 
+  router.get('/login', userController.getUserLoginView);
+  router.post('/login', userController.userLogin);
+
+  // Main requests for Logout 
+  router.get('/logout', userController.userLogout);
+
+  // Main requests for Signup 
+  router.get('/signup', userController.getUserSignupView);
+  router.post('/signup', userController.userSignup);
+
+  // Main requests for Settings  
+  router.get('/settings', userController.getSettingsView);
+  router.get('/settings/:user_id', userController.getUserInformationToUpdate)
+  router.post('/settings/:user_id', userController.updateUserName)
+  router.delete('/settings/:user_id', userController.deleteUser);
+```
+
+- userController.js
+
+```js
+let userController = {
+  getUserLoginView: (req, res) => { /* Code implementation */ },
+  userLogin: (req, res) => { /* Code implementation */ },
+  userLogout: (req, res) => { /* Code implementation */ },
+  getUserSignupView: (req, res) => {/* Code implementation */ },
+  userSignup: (req, res) => { /* Code implementation */ },
+  getSettingsView: (req, res) => { /* Code implementation */ },
+  getUserInformationToUpdate: (req, res) => {/* Code implementation */ },
+  updateUserName: (req, res) => { /* Code implementation */ },
+  deleteUser: (req, res) => { /* Code implementation */ }
+}
+
+module.exports = userController
+```
 
 ---
 
