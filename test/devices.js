@@ -1,5 +1,6 @@
 const chai = require('chai');
 const should = chai.should();
+const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const app = require("../app.js")
@@ -28,18 +29,16 @@ describe('Check user login', () => {
         
 
         done();
-    });
+      });
     agent
       .post('/login')
       .send(userCredentials)
       .then(function(res) {
-        //expect(res).to.have.cookie('sessionid');
-        res.status.should.have.cookie('id');
-        // The `agent` now has the sessionid cookie saved, and will send it
-        // back to the server in the next request:
-        return agent.get('/users/')
+        expect(res).to.have.cookie('session_id');
+      
+        return agent.get('/login/')
           .then(function (res) {
-            res.status.should.equal(200);
+            expect(res).to.have.status(200);
         });
       });
   });
