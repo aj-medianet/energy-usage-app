@@ -4,6 +4,33 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const app = require("../app.js")
 
+//const supertest = require('supertest');
+//var agent = supertest.agent(app);
+//var Cookies;
+
+const userCredentials = {
+  email: 'tester@tester.com', 
+  password: 'test123'
+}
+
+describe('Check user login', () => {
+  it('should check that we can login', (done) => {
+    chai.request(app)
+      .post('/login')
+      .set('Accept','application/json')
+      .send(userCredentials)
+      .end(function(err, res){
+        // there should be no errors
+        should.not.exist(err);
+        // there should be a 200 status code
+        res.status.should.equal(200);
+        
+
+        done();
+    });
+  });
+});
+
 describe('GET /', () => {
   it('should respond nav page', (done) => {
     chai.request(app)
