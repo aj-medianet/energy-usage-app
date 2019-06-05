@@ -8,6 +8,8 @@ const app = require("../app.js")
 //var agent = supertest.agent(app);
 //var Cookies;
 
+var agent = chai.request.agent(app);
+
 const userCredentials = {
   email: 'tester@tester.com', 
   password: 'test123'
@@ -17,7 +19,6 @@ describe('Check user login', () => {
   it('should check that we can login', (done) => {
     chai.request(app)
       .post('/login')
-      .set('Accept','application/json')
       .send(userCredentials)
       .end(function(err, res){
         // there should be no errors
@@ -28,6 +29,19 @@ describe('Check user login', () => {
 
         done();
     });
+    agent
+      .post('/login')
+      .send(userCredentials)
+      .then(function(res) {
+        //expect(res).to.have.cookie('sessionid');
+        res.status.should.have.cookie('id');
+        // The `agent` now has the sessionid cookie saved, and will send it
+        // back to the server in the next request:
+        return agent.get('/users/')
+          .then(function (res) {
+            res.status.should.equal(200);
+        });
+      });
   });
 });
 
