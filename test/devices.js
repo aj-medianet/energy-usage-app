@@ -111,7 +111,21 @@ describe('GET /', () => {
   });
 });
 
-
+describe('GET /', () => {
+  it('should respond faq page', (done) => {
+    chai.request(app)
+    .get('/faq')
+    .end((err, res) => {
+      // there should be no errors
+      should.not.exist(err);
+      // there should be a 200 status code
+      res.status.should.equal(200);
+      // the response should be JSON
+      res.type.should.equal('text/html');
+      done();
+    });
+  });
+});
 
 describe('GET /', () => {
   it('should respond device page', (done) => {
