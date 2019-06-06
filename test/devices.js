@@ -159,9 +159,9 @@ describe('PUT /', () => {
   it('should update device in the database', (done) => {
 
     var updatedDevice = {};
-    updatedDevice.name = "Toaster";
-    updatedDevice.manufacturer = "Toasty";
-    updatedDevice.deviceOnOff = 1;
+    updatedDevice.name = "Microwave";
+    updatedDevice.manufacturer = "Toshiba";
+    updatedDevice.deviceOnOff = 0;
 
     chai.request(app)
     .put('/devices/1')
@@ -186,9 +186,9 @@ describe('PUT /', () => {
       var data = JSON.parse(res.header.data);
 
       data.device.id.should.equal(1);
-      data.device.name.should.equal('Toaster');
-      data.device.manufacturer.should.equal('Toasty');
-      data.device.deviceOnOff.should.equal(1);
+      data.device.name.should.equal('Microwave');
+      data.device.manufacturer.should.equal('Toshiba');
+      data.device.deviceOnOff.should.equal(0);
 
       done();
     });

@@ -375,4 +375,14 @@ or whatever user you have set up on your local machine.
 
 - Once you would like to terminate the program run on your mahcine: `npm stop`
 
+---
+
+## How to run the unit tests
+
+- Stop the web server first: `npm stop`
+
+- Make sure you have the latest database on your local machine 
+
+- Run the test `npm test`
+
 ***
