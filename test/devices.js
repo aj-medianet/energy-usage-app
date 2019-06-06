@@ -80,8 +80,6 @@ describe('Check user login', () => {
   });
 });
 
-
-
 describe('Check user login', () => {
   it('should redirect to login page when trying to visit devices page when not logged in', (done) => {
     chai.request(app)
@@ -94,6 +92,16 @@ describe('Check user login', () => {
 });
 
 
+describe('Check unauthorized user cant access any devices', () => {
+  it('should redirect to login page', (done) => {
+    chai.request(app)
+      .get('/devices/1')
+      .end(function(err, res){
+        expect(res).to.redirect;
+        done();
+    });
+  });
+});
 
 describe('GET /', () => {
   it('should respond nav page', (done) => {
