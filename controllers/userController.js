@@ -56,6 +56,9 @@ let userController = {
             req.session.cookie.maxAge = 60 * 60 * 1000;
             req.session.email = context.user.email;
             req.session.name = context.user.name;
+            
+            res.setHeader('login', 'success')
+            
             /* Render HOME page with session information updated */
             return res.render('home', {
               title: 'Home',
@@ -68,8 +71,8 @@ let userController = {
           /* Error: Password is incorrect */
           else
           {
-            req.flash('error_msg', 'Passpword is incorrect!')
-            return res.redirect('/login')           
+            req.flash('error_msg', 'Password is incorrect!')
+            return res.redirect('/login')
           }
         }
         /* Error: Email not in DB */

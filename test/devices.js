@@ -16,33 +16,84 @@ const userCredentials = {
   password: 'test123'
 }
 
+const wrongCredentials = {
+  email: 'tester@tester.com',
+  password: 'test'
+}
+
 describe('Check user login', () => {
-  it('should check that we can login', (done) => {
+  it('should check that the user can login', (done) => {
     chai.request(app)
       .post('/login')
       .send(userCredentials)
-      .end(function(err, res){
-        // there should be no errors
-        should.not.exist(err);
-        // there should be a 200 status code
-        res.status.should.equal(200);
-        
-
+      .end(function(err, res) {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res).to.have.header('login', 'success');
         done();
-      });
+    });
+  });
+});
+
+
+describe('Check user login', () => {
+  it('should verify that wrong credentials cannot login', (done) => {
+    chai.request(app)
+      .post('/login')
+      .send(wrongCredentials)
+      .end(function(err, res) {
+        expect(res).to.not.have.header('login');
+        done();
+    });
+  });
+});
+
+
+describe('Check user login', () => {
+  it('should check that we can access devices page when logged in', (done) => {
+    var agent = chai.request.agent(app);
     agent
       .post('/login')
       .send(userCredentials)
       .then(function(res) {
-        expect(res).to.have.cookie('session_id');
-      
-        return agent.get('/login/')
-          .then(function (res) {
-            expect(res).to.have.status(200);
+        agent.get('/devices/')
+        .end((err, res) => {
+          // there should be no error
+          should.not.exist(err);
+          // there should be a 200 status code
+          res.status.should.equal(200);
+          // the response should be JSON
+          res.type.should.equal('text/html');
+
+          var data = JSON.parse(res.header.data);
+          data.devices[0].id.should.equal(1);
+          data.devices[0].name.should.equal('Microwave');
+          data.devices[0].deviceOnOff.should.equal(0);
+          data.devices[0].currentEnergyUsage.should.equal(0);
+          data.devices[0].averageEnergyUsage.should.equal(150);
+
+          data.devices.length.should.equal(6);
+        
+        done();    
         });
-      });
+     });
   });
 });
+
+
+
+describe('Check user login', () => {
+  it('should redirect to login page when trying to visit devices page when not logged in', (done) => {
+    chai.request(app)
+      .get('/devices/')
+      .end(function(err, res){
+        expect(res).to.redirect;
+        done();
+    });
+  });
+});
+
+
 
 describe('GET /', () => {
   it('should respond nav page', (done) => {
@@ -60,32 +111,7 @@ describe('GET /', () => {
   });
 });
 
-describe('GET /', () => {
-  it('should respond devices page', (done) => {
-    chai.request(app)
-    .get('/devices/')
-    .end((err, res) => {
-      // there should be no errors
-      should.not.exist(err);
-      // there should be a 200 status code
-      res.status.should.equal(200);
-      // the response should be JSON
-      res.type.should.equal('text/html');
 
-      var data = JSON.parse(res.header.data);
-
-      data.devices[0].id.should.equal(1);
-      data.devices[0].name.should.equal('Microwave');
-      data.devices[0].deviceOnOff.should.equal(0);
-      data.devices[0].currentEnergyUsage.should.equal(0);
-      data.devices[0].averageEnergyUsage.should.equal(150);
-
-      data.devices.length.should.equal(6);
-
-      done();
-    });
-  });
-});
 
 describe('GET /', () => {
   it('should respond device page', (done) => {
@@ -209,3 +235,5 @@ describe('PUT /', () => {
     });
   });
 });
+
+agent.close();
