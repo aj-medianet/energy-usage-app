@@ -88,19 +88,26 @@ let deviceController = {
   },
 
   getSingleDevice: (req, res) => {
-    callbackCount = 0;
-    var context = {};
-    context.jsscripts = ["updatedevice.js"];
-    var mysql = req.app.get('mysql');
-    getDevice(res, mysql, context, req.params.device_id, done);
-    function done() 
-    {
-        callbackCount++;
-        if (callbackCount >= 1)
+    if(req.session.email != null) {
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatedevice.js"];
+        var mysql = req.app.get('mysql');
+        getDevice(res, mysql, context, req.params.device_id, done);
+        function done() 
         {
-            res.setHeader('data', JSON.stringify(context));
-            res.render('updateDevice', context);
+            callbackCount++;
+            if (callbackCount >= 1)
+            {
+                res.setHeader('data', JSON.stringify(context));
+                res.render('updateDevice', context);
+            }
         }
+    }
+    else
+    {
+        req.flash('error_msg', 'Please log in before visiting Device Page')
+        return res.redirect('/login');
     }
   },
 
@@ -120,27 +127,11 @@ let deviceController = {
           res.end();
       }
     });
-  },
-
-  deleteSingleDevice: (req, res) => {
-    console.log("Delete button pressed!");
-
-    var mysql = req.app.get('mysql');
-    var sql_query = "DELETE Device FROM devices Device WHERE Device.id = ?";
-    var inserts = req.params.device_id;
-
-    sql = mysql.pool.query(sql_query, inserts, (err, result, fields) => {
-        if(err) 
-        {
-            res.send(500);
-        } 
-        else 
-        {
-            res.status(202);
-            res.end();
-        }
-    });
   }
+
+  
+
+  
 }
 
 module.exports = deviceController
