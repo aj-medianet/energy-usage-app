@@ -21,6 +21,11 @@ const wrongCredentials = {
   password: 'test'
 }
 
+const newCredentials = {
+  email: 'NewUser@user.com',
+  password: 'password'
+}
+
 describe('Check user login', () => {
   it('should check that the user can login', (done) => {
     chai.request(app)
@@ -30,6 +35,7 @@ describe('Check user login', () => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(res).to.have.header('login', 'success');
+        expect(res).to.have.header('session', 'tester@tester.com');
         done();
     });
   });
@@ -80,6 +86,8 @@ describe('Check user login', () => {
   });
 });
 
+
+
 describe('Check user login', () => {
   it('should redirect to login page when trying to visit devices page when not logged in', (done) => {
     chai.request(app)
@@ -103,6 +111,8 @@ describe('Check unauthorized user cant access any devices', () => {
   });
 });
 
+
+
 describe('GET /', () => {
   it('should respond nav page', (done) => {
     chai.request(app)
@@ -119,6 +129,8 @@ describe('GET /', () => {
   });
 });
 
+
+
 describe('GET /', () => {
   it('should respond faq page', (done) => {
     chai.request(app)
@@ -134,6 +146,8 @@ describe('GET /', () => {
     });
   });
 });
+
+
 
 describe('GET /', () => {
   it('should respond device page', (done) => {
@@ -165,6 +179,8 @@ describe('GET /', () => {
   });
 });
 
+
+
 describe('GET /', () => {
   it('should respond search page', (done) => {
     chai.request(app)
@@ -182,12 +198,14 @@ describe('GET /', () => {
   });
 });
 
+
+
 describe('PUT /', () => {
   it('should update device in the database', (done) => {
 
     var updatedDevice = {};
-    updatedDevice.name = "Microwave";
-    updatedDevice.manufacturer = "Toshiba";
+    updatedDevice.name = "Toaster";
+    updatedDevice.manufacturer = "Toasty";
     updatedDevice.deviceOnOff = 0;
 
     var agent = chai.request.agent(app);
@@ -216,8 +234,8 @@ describe('PUT /', () => {
       var data = JSON.parse(res.header.data);
 
       data.device.id.should.equal(1);
-      data.device.name.should.equal('Microwave');
-      data.device.manufacturer.should.equal('Toshiba');
+      data.device.name.should.equal('Toaster');
+      data.device.manufacturer.should.equal('Toasty');
       data.device.deviceOnOff.should.equal(0);
 
       done();
@@ -225,6 +243,7 @@ describe('PUT /', () => {
     });
   });
 });
+
 
 
 describe('PUT /', () => {
@@ -272,4 +291,87 @@ describe('PUT /', () => {
   });
 });
 
+
+describe('Signup', () => {
+    it('should verify that a new user can be added to the database', (done) => {
+        
+        var newUser = {};
+        newUser.email = 'NewUser@user.com';
+        newUser.name = 'New User';
+        newUser.password = 'password';
+        newUser.confirmPassword = 'password';
+
+        chai.request(app)
+        .post('/signup')
+        .send(newUser)
+        .then(function(res) {
+            chai.request(app)     
+            .post('/login')
+            .send(newCredentials)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+                expect(res).to.have.header('login', 'success');
+                expect(res).to.have.header('session', 'NewUser@user.com');
+            done();
+            });
+        }); 
+    });
+});
+
+
+describe('Update User', () => {
+    it('should update user info', (done) => {
+        var agent = chai.request.agent(app);
+        agent
+            .post('/login')
+            .send(newCredentials)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+                expect(res).to.have.header('login', 'success');
+                expect(res).to.have.header('session', 'NewUser@user.com');
+                return agent.get('/settings')
+                    .then(function(res) {
+                        expect(res).to.have.header('name', 'New User');
+                        return agent.post('/settings/' + res.header.id)
+                            .send({updatedName: 'Old User'})
+                            .then(function(res) {
+                                res.status.should.equal(200);
+                                expect(res).to.have.header('name', 'Old User')
+                                done();
+                            });
+                        done();
+                        });
+                    });
+                });
+            });
+
+
+describe('Delete User', () => {
+    it('should delete user from database', (done) => {
+        var agent = chai.request.agent(app);
+        agent
+            .post('/login')
+            .send(newCredentials)
+            .then(function(res) {
+                expect(res).to.have.status(200);
+                expect(res).to.have.header('login', 'success');
+                expect(res).to.have.header('session', 'NewUser@user.com');
+                return agent.get('/settings')
+                    .then(function(res) {
+                        expect(res).to.have.header('name', 'Old User');
+                        return agent.delete('/settings/' + res.header.id)
+                            .then(function(res) {
+                                res.status.should.equal(202);
+                                return agent.post('/login')
+                                    .then(function(res) {
+                                        expect(res).to.not.have.header('login', 'success');
+                                        done();
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+                
+                              
 agent.close();

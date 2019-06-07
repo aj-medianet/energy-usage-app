@@ -58,6 +58,7 @@ let userController = {
             req.session.name = context.user.name;
             
             res.setHeader('login', 'success')
+            res.setHeader('session', req.session.email);
             
             /* Render HOME page with session information updated */
             return res.render('home', {
@@ -117,7 +118,7 @@ let userController = {
         errors.push({ msg: 'Password do not match.'})
       }
 
-      console.log(errors)
+      //console.log(errors)
 
       if(errors.length > 0) 
       {
@@ -137,7 +138,7 @@ let userController = {
           {
             if (context.user) 
             {
-              console.log(context.user)
+              //console.log(context.user)
               /* Found the user in the DB */
               errors.push({ msg : 'Email already exists.'});
               return res.render('signup', {errors, email, name, password, confirmPassword})      
@@ -160,7 +161,7 @@ let userController = {
                   } else {
                       console.log("New User created: " + email)
                       /* Redirect to the login page with flesh message - signup success */
-                      req.flash('success_msg', 'You are now registered and can log in.')
+                      req.flash('success_msg', 'You are now registered and can log in.') 
                       return res.redirect('/login')
                   }
               })
@@ -183,6 +184,8 @@ let userController = {
         if (callbackCount >= 1)
         {
           req.session.name = context.user.name; // Update user name
+          res.setHeader('name', req.session.name);
+          res.setHeader('id', req.session.id);
           return res.render('settings', {
             session: req.session,
             id: req.session.id,
@@ -217,13 +220,14 @@ let userController = {
   updateUserName: (req, res) => {
     const email = req.session.email;
     const updatedName = req.body.updatedName;
+    
     var mysql = req.app.get('mysql');
     var sql_query = `UPDATE users SET name = ? WHERE email = ?`;
     var inserts = [updatedName, email];
 
     sql = mysql.pool.query(sql_query, inserts, (err, results, fields) => {
       if(err) {
-          res.send(500);
+          res.sendStatus(500);
       } else {
           console.log("Updated User Name");
           return res.redirect('/settings');
