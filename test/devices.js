@@ -137,25 +137,30 @@ describe('GET /', () => {
 
 describe('GET /', () => {
   it('should respond device page', (done) => {
-    chai.request(app)
-    .get('/devices/1')
-    .end((err, res) => {
-      // there should be no errors
-      should.not.exist(err);
-      // there should be a 200 status code
-      res.status.should.equal(200);
-      // the response should be JSON
-      res.type.should.equal('text/html');
+    var agent = chai.request.agent(app);
+    agent
+      .post('/login')
+      .send(userCredentials)
+      .then(function(res) {
+        agent.get('/devices/1')
+          .end((err, res) => {
+          // there should be no errors
+          should.not.exist(err);
+          // there should be a 200 status code
+          res.status.should.equal(200);
+          // the response should be JSON
+          res.type.should.equal('text/html');
 
-      var data = JSON.parse(res.header.data);
+          var data = JSON.parse(res.header.data);
 
-      data.device.id.should.equal(1);
-      data.device.name.should.equal('Microwave');
-      data.device.deviceOnOff.should.equal(0);
-      data.device.currentEnergyUsage.should.equal(0);
-      data.device.averageEnergyUsage.should.equal(150);
+          data.device.id.should.equal(1);
+          data.device.name.should.equal('Microwave');
+          data.device.deviceOnOff.should.equal(0);
+          data.device.currentEnergyUsage.should.equal(0);
+          data.device.averageEnergyUsage.should.equal(150);
 
       done();
+      });
     });
   });
 });
@@ -185,18 +190,21 @@ describe('PUT /', () => {
     updatedDevice.manufacturer = "Toshiba";
     updatedDevice.deviceOnOff = 0;
 
-    chai.request(app)
-    .put('/devices/1')
-    .send(updatedDevice)
-    .end((err, res) => {
-       // there should be no errors
-      should.not.exist(err);
-      // there should be a 200 status code
-      res.status.should.equal(200);
+    var agent = chai.request.agent(app);
+    agent
+      .post('/login')
+      .send(userCredentials)
+      .then(function(res) {
+        agent.put('/devices/1')
+        .send(updatedDevice)
+        .end((err, res) => {
+         // there should be no errors
+        should.not.exist(err);
+        // there should be a 200 status code
+        res.status.should.equal(200);
      });
 
-     chai.request(app)
-     .get('/devices/1')
+     agent.get('/devices/1')
      .end((err, res) => {
       // there should be no errors
       should.not.exist(err);
@@ -213,9 +221,11 @@ describe('PUT /', () => {
       data.device.deviceOnOff.should.equal(0);
 
       done();
+      });
     });
   });
 });
+
 
 describe('PUT /', () => {
   it('should update to original device in the database', (done) => {
@@ -225,19 +235,22 @@ describe('PUT /', () => {
     origDevice.manufacturer = "Toshiba";
     origDevice.deviceOnOff = 0;
 
-    chai.request(app)
-    .put('/devices/1')
-    .send(origDevice)
-    .end((err, res) => {
-      // there should be no errors
-      should.not.exist(err);
-      // there should be a 200 status code
-      res.status.should.equal(200);
+    var agent = chai.request.agent(app);
+    agent
+      .post('/login')
+      .send(userCredentials)
+      .then(function(res) {
+        agent.put('/devices/1')
+        .send(origDevice)
+        .end((err, res) => {
+        // there should be no errors
+        should.not.exist(err);
+        // there should be a 200 status code
+        res.status.should.equal(200);
 
     });
 
-    chai.request(app)
-    .get('/devices/1')
+    agent.get('/devices/1')
     .end((err, res) => {
       // there should be no errors
       should.not.exist(err);
@@ -254,6 +267,7 @@ describe('PUT /', () => {
       data.device.deviceOnOff.should.equal(0);
 
       done();
+      });
     });
   });
 });
